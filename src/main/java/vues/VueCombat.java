@@ -17,6 +17,7 @@ import modele.exceptions.ChoixInnatenduException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class VueCombat implements Vue {
     private Stage stage;
@@ -146,12 +147,20 @@ public class VueCombat implements Vue {
     }
 
     public void jouer(ActionEvent actionEvent) {
-        String choix = ((RadioButton)toggleGroup.getSelectedToggle()).getText();
-        try {
-            this.controleur.jouer(choix);
-        } catch (ChoixInnatenduException | ChoixIncompletsException e) {
+
+        RadioButton radioButton = (RadioButton) toggleGroup.getSelectedToggle();
+        if (Objects.isNull(radioButton)) {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Vous devez choisir entre Pierre/Ciseaux/Feuille !!!", ButtonType.OK);
             alert.showAndWait();
+        }
+        else {
+            String choix = radioButton.getText();
+            try {
+                this.controleur.jouer(choix);
+            } catch (ChoixInnatenduException | ChoixIncompletsException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Vous devez choisir entre Pierre/Ciseaux/Feuille !!!", ButtonType.OK);
+                alert.showAndWait();
+            }
         }
     }
 
