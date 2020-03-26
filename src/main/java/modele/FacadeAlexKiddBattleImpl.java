@@ -80,7 +80,7 @@ public class FacadeAlexKiddBattleImpl implements FacadeAlexKiddBattle {
 
     @Override
     public boolean partieTerminee() {
-        return Math.abs(this.victoireAlexKidd - this.victoireJoueur) >=2;
+        return (this.victoireAlexKidd == 2 || this.victoireJoueur==2);
     }
 
     @Override
